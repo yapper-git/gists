@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ -n "$NEMO_SCRIPT_SELECTED_URIS" ]; then
+    gedit $NEMO_SCRIPT_SELECTED_URIS
+elif [ -n "$NAUTILUS_SCRIPT_SELECTED_URIS" ]; then
+    gedit $NAUTILUS_SCRIPT_SELECTED_URIS
+fi

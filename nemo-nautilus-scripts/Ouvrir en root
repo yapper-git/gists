@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ -n "$NEMO_SCRIPT_CURRENT_URI" ]; then
+    gksu -D "Ouvrir nemo en root" "nemo --no-desktop '$NEMO_SCRIPT_CURRENT_URI'"
+elif [ -n "$NAUTILUS_SCRIPT_CURRENT_URI" ]; then
+    gksu -D "Ouvrir nautilus en root" "nautilus --no-desktop '$NAUTILUS_SCRIPT_CURRENT_URI'"
+fi

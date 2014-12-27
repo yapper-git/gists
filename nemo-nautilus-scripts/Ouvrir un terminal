@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+
+import os
+from urllib.parse import urlparse, unquote
+
+TERMINALS = ['x-terminal-emulator', 'gnome-terminal', 'terminator', 'xfce4-terminal', 'xterm']
+
+if 'NEMO_SCRIPT_CURRENT_URI' in os.environ:
+    FOLDER = unquote(urlparse(os.environ['NEMO_SCRIPT_CURRENT_URI']).path)
+elif 'NAUTILUS_SCRIPT_CURRENT_URI' in os.environ:
+    FOLDER = unquote(urlparse(os.environ['NAUTILUS_SCRIPT_CURRENT_URI']).path)
+else:
+    FOLDER = os.environ['HOME']
+
+os.chdir(FOLDER)
+os.system(' || '.join(TERMINALS))
