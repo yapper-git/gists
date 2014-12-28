@@ -23,7 +23,7 @@
 
 ## Tips
 
-```
+```bash
 # update
 sudo paman -Syu
 yaourt -Syu --devel --aur
@@ -67,7 +67,7 @@ pacman -Ql package_name
 (Attention, c'est le *souk* ici)
 
 sur le RPI :
-```
+```bash
 pacman -S avahi nss-mdns
 systemctl restart dbus
 systemctl start dbus
@@ -80,7 +80,7 @@ NB : La dernière action suffit !! (sudo systemctl enable avahi-daemon)
 
 ### Bumblebee et les mises à jours
 
-```
+```bash
 sudo pacman -Rdd libgl
 yaourt -S nvidia-utils-bumblebee
 yaourt -S nvidia-bumblebee
@@ -101,7 +101,7 @@ avahi-daemon?
 
 ### Sans ifconfig, ni Networkmanager
 
-```
+```bash
 ip link show
 dhcpcd INTERFACE
 ```
