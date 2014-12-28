@@ -1,29 +1,34 @@
-# Bureautique
+# Logiciels
+
+## Bureautique
 
 * LibreOffice
 * Polices de caractères (microsoft, bistream-vera, dejavu, freefont, liberation, ubuntu, dustin...)
+* aspell, myspell, hunspell
+* Calibre
+* Gnote, Tomboy
 * LaTeX (texlive, texlive-lang-french, texlive-latex-extra)
 * Gummi, Texmaker
 * Dia
+* Verbiste
 
-# Éditeur de texte
+## Éditeur de texte
 
-* gedit gedit-plugins
-* geany geany-plugins
+* gedit (+plugins)
+* geany (+plugins)
 * nano
 * vim
 * emacs
 
-# Graphisme
+## Graphisme
 
 * GIMP
 * Inkscape
-* Audacity
 * Shotwell
 * GThumb
 * imagemagick
 
-# Musique & Vidéo
+## Musique & Vidéo
 
 * VLC
 * libdvdcss, libdvdread
@@ -31,23 +36,24 @@
 * Totem
 * Moovida
 
-* Quod Libet, Ex Falso
+* Quod Libet, Ex Falso (+plugins)
 * SoundConverter
 * Sound Juicer
 * LilyPond
 * TiMidity++
 * TuxGuitar
+* Audacity
 * vorbis-tools
 * dir2ogg
 
-# Internet
+## Internet
 
 * Firefox
 * Thunderbird
 * Chromimum
 * Epiphany
 
-# Éducation
+## Éducation
 
 * GeoGebra
 * Xcas
@@ -56,11 +62,11 @@
 * GCompris
 * GNU Solfege
 
-# Jeux
+## Jeux
 
 * Blobby Volley
 * Globulation2
-* Simon Tatham's Portable Puzzle Collection
+* sgt-puzzle (Simon Tatham's Portable Puzzle Collection)
 * SuperTux
 * SuperTuxKart
 * Teeworlds
@@ -75,9 +81,11 @@
 * Gnome Games, Gnome Hearts
 * DosBox
 
-# Utilitaires
+## Utilitaires
 
 * git, gitg, giggle
+* rsync
+* unzip
 * meld
 * pyrenamer
 * terminator
@@ -93,13 +101,15 @@
 * Wireshark
 * libgsf-bin
 * libnotify-bin
+* brasero
+* bless
 
 * ubuntu-minimal, ubuntu-restricted-extras, ubuntu-standard
 * openjdk-6-jre, icedtea6-plugin
 
-# Serveur
+## Serveur
 
-* openssh-client openssh-server
+* openssh (client/server)
 * nginx
 * apache2
 * php5, php5-cli, php-pear, php5-imagick, php5-mysql
