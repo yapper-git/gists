@@ -50,8 +50,8 @@ txtrst='\e[0m'    # Text Reset
 ################################################################################
 
 
-export EDITOR="vim"
-export VISUAL=$EDITOR
+export EDITOR="nano"
+export VISUAL="vim"
 export PATH="$PATH:$HOME/.local/bin:$HOME/.scripts"
 hash most 2> /dev/null && export PAGER="most" # for man (requires most)
 
