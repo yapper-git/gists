@@ -32,13 +32,13 @@ gitk, gitg, giggle
 * Rechercher dans les fichiers sources : `git grep [-n] "TODO"`
 * Demander à Git d’ignorer des fichiers (`.gitignore`)
 
-```
+```bash
 git push origin master
 git push origin my-new-feature
 # Source: github minituto
 ```
 
-```
+```bash
 git ls-files
 git clone location folder
 git pull location master
@@ -49,7 +49,7 @@ git tag 2.14 checksum
 # Source: https://wiki.archlinux.org/index.php/git
 ```
 
-```
+```bash
 git config --global color.diff auto
 git config --global color.status auto
 git config --global color.branch auto
