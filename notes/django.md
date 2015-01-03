@@ -39,3 +39,10 @@ stackoverflow.com/questions/2260727/accessing-local-django-webserver-from-outsid
 ```bash
 python manage.py runserver 0.0.0.0:8000
 ```
+
+* Writing custom django-admin commands:
+  [fr](https://docs.djangoproject.com/fr/1.7/howto/custom-management-commands/)
+  [en](https://docs.djangoproject.com/en/1.7/howto/custom-management-commands/)
+* Getting started:
+  [fr](https://docs.djangoproject.com/fr/1.7/intro/)
+  [en](https://docs.djangoproject.com/en/1.7/intro/)
