@@ -33,3 +33,9 @@
 * De base, l'administration permet la gestion complète des utilisateurs, de groupes et des droits de chacun, de façon très fine.
 * L'administration d'un modèle créé dans une de nos applications est possible en l'enregistrant dans le module d'administration, via `admin.site.register(MonModele)` dans le fichier `admin.py` de l'application.
 * Il est également possible de personnaliser cette interface pour chaque module, en précisant ce qu'il faut afficher dans les tableaux de listes, ce qui peut être édité, etc.
+
+
+stackoverflow.com/questions/2260727/accessing-local-django-webserver-from-outside-world
+```bash
+python manage.py runserver 0.0.0.0:8000
+```

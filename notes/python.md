@@ -370,3 +370,30 @@ TODO
 ## Pour finir et bien continuer
 
 TODO
+
+
+
+# [ElementTree XML API](https://docs.python.org/3/library/xml.etree.elementtree.html)
+
+```python
+import xml.etree.ElementTree as ET
+
+# from file
+tree = ET.parse('data.xml')
+root = tree.getroot()
+
+# from string
+root = ET.fromstring(country_data_as_string)
+```
+
+# Element
+element.tag    # str
+element.attrib # dict
+element.text
+element.tail
+element.set('name', 'value')
+
+element.iter('neighbor')
+
+element.findall('xpath')
+```
