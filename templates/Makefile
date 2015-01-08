@@ -24,9 +24,9 @@ hello: hello.cpp hello.hpp
 	$(CC) $< -o $@ $(CFLAGS)
 
 clean:
-	rm *.o
+	rm -f *.o
 
 mrproper: clean
-	rm $(EXEC)
+	rm -f $(EXEC)
 
 .PHONY: clean mrproper
