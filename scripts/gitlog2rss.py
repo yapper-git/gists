@@ -1,11 +1,12 @@
 #!/usr/bin/env python
+# coding=utf-8
 #
 # @name gitlog2rss.py
 # @author yvand
 # @see
-#   * http://git-scm.com/book/fr/v2/Customizing-Git-Git-Hooks
-#   * http://blog.lost-theory.org/post/how-to-parse-git-log-output/
-#   * http://opensource.apple.com/source/Git/Git-19/src/git-htmldocs/pretty-formats.txt
+# * http://git-scm.com/book/fr/v2/Customizing-Git-Git-Hooks
+# * http://blog.lost-theory.org/post/how-to-parse-git-log-output/
+# * http://opensource.apple.com/source/Git/Git-19/src/git-htmldocs/pretty-formats.txt
 
 """
 RSS feed generator to follow git workflow (using git log)
@@ -14,16 +15,20 @@ RSS feed generator to follow git workflow (using git log)
 import argparse
 from datetime import datetime
 from jinja2 import Template
-import gitlog2rss # for __doc__
-import os # for chdir, getcwd, path.basename
+import gitlog2rss  # for __doc__
+import os  # for chdir, getcwd, path.basename
 import re
 from subprocess import Popen, PIPE
 import sys
 
 parser = argparse.ArgumentParser(description=gitlog2rss.__doc__)
-parser.add_argument("repository", help="path to GIT repository")
-parser.add_argument("link", help="URL of the RSS feed")
-parser.add_argument("target", help="path to RSS output file (or stdout if missing)", nargs='?', default='-')
+parser.add_argument("repository",    help="path to GIT repository")
+parser.add_argument("link",          help="URL of the RSS feed")
+parser.add_argument("target",        help="path to RSS output file. Default: stdout.", nargs='?', default='-')
+parser.add_argument("-n", "--limit", help="number of commits to print. Default: 10", default=10)
+parser.add_argument("-r", "--reponame",
+                    help="name of the GIT repository. Default: the basename of the repository's path")
+parser.add_argument("-v", "--version", action="version", version="%(prog)s v.2.0")
 args = parser.parse_args()
 
 pwd = os.getcwd()
@@ -34,11 +39,11 @@ except FileNotFoundError as e:
     print(str(e), file=sys.stderr)
     sys.exit(1)
 
-GIT_LIMIT = 10
+GIT_LIMIT = args.limit
 GIT_COMMIT_FIELDS = ['id', 'author_name', 'author_email', 'date', 'subject', 'body']
 GIT_LOG_FORMAT = ['%H', '%an', '%ae', '%ad', '%s', '%B']
 
-DATETIME_RSS = '%a, %d %b %Y %H:%M:%S +0100' # or import email.utils
+DATETIME_RSS = '%a, %d %b %Y %H:%M:%S +0100'  # or import email.utils
 
 # git log -n --format="%H %s..."
 GIT_LOG_FORMAT = '%x1f'.join(GIT_LOG_FORMAT) + '%x1e'
@@ -55,7 +60,7 @@ pattern = re.compile(r'^(\w+) (\w+) (\d+) (\d{2}:\d{2}:\d{2}) (\d{4}) (.+)$')
 for commit in log:
     commit['date'] = pattern.sub(r'\1, \3 \2 \5 \4 \6', commit['date'])
 
-repository = os.path.basename(args.repository)
+repository = os.path.basename(os.path.realpath(args.repository)) if (args.reponame is None) else args.reponame
 
 tmpl = Template('''\
 <?xml version="1.0" encoding="utf-8"?>
@@ -73,7 +78,7 @@ tmpl = Template('''\
       <description>{{ item.body }}</description>
       <guid isPermaLink="false">{{ item.id }}</guid>
       <pubDate>{{ item.date }}</pubDate>
-      <author>{{ item.author_email }} ({{ item.author_name }})</author>
+      <author>{{ item.author_name }} <{{ item.author_email }}></author>
     </item>
     {%- endfor %}
   </channel>
@@ -85,7 +90,7 @@ tmpl_render = tmpl.render(
     description='RSS feed to follow the workflow of %s repository' % repository,
     link=args.link,
     last_build_date=datetime.now().strftime(DATETIME_RSS),
-    ttl=60,
+    ttl=900,
     item_list=log
 )
 
