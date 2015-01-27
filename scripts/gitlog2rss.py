@@ -1,12 +1,11 @@
 #!/usr/bin/env python
-# coding=utf-8
 #
 # @name gitlog2rss.py
 # @author yvand
 # @see
-# * http://git-scm.com/book/fr/v2/Customizing-Git-Git-Hooks
-# * http://blog.lost-theory.org/post/how-to-parse-git-log-output/
-# * http://opensource.apple.com/source/Git/Git-19/src/git-htmldocs/pretty-formats.txt
+#   * http://git-scm.com/book/fr/v2/Customizing-Git-Git-Hooks
+#   * http://blog.lost-theory.org/post/how-to-parse-git-log-output/
+#   * http://opensource.apple.com/source/Git/Git-19/src/git-htmldocs/pretty-formats.txt
 
 """
 RSS feed generator to follow git workflow (using git log)
@@ -21,6 +20,9 @@ import re
 from subprocess import Popen, PIPE
 import sys
 
+VERSION = "2.0"
+version_str = "{} v.{}" % ("%(prog)s", VERSION)
+
 parser = argparse.ArgumentParser(description=gitlog2rss.__doc__)
 parser.add_argument("repository",    help="path to GIT repository")
 parser.add_argument("link",          help="URL of the RSS feed")
@@ -28,7 +30,8 @@ parser.add_argument("target",        help="path to RSS output file. Default: std
 parser.add_argument("-n", "--limit", help="number of commits to print. Default: 10", default=10)
 parser.add_argument("-r", "--reponame",
                     help="name of the GIT repository. Default: the basename of the repository's path")
-parser.add_argument("-v", "--version", action="version", version="%(prog)s v.2.0")
+parser.add_argument("-t", "--ttl",   help="Time to Live of the output RSS. Default: 60", default=60)
+parser.add_argument("-v", "--version", action="version", version=version_str)
 args = parser.parse_args()
 
 pwd = os.getcwd()
@@ -60,7 +63,7 @@ pattern = re.compile(r'^(\w+) (\w+) (\d+) (\d{2}:\d{2}:\d{2}) (\d{4}) (.+)$')
 for commit in log:
     commit['date'] = pattern.sub(r'\1, \3 \2 \5 \4 \6', commit['date'])
 
-repository = os.path.basename(os.path.realpath(args.repository)) if (args.reponame is None) else args.reponame
+repository = args.reponame if args.reponame is not None else os.path.basename(os.path.realpath(args.repository))
 
 tmpl = Template('''\
 <?xml version="1.0" encoding="utf-8"?>
@@ -75,10 +78,10 @@ tmpl = Template('''\
     {%- for item in item_list %}
     <item>
       <title>{{ item.subject }}</title>
-      <description>{{ item.body }}</description>
+      <description><![CDATA[{{ item.body }}]]></description>
       <guid isPermaLink="false">{{ item.id }}</guid>
       <pubDate>{{ item.date }}</pubDate>
-      <author>{{ item.author_name }} <{{ item.author_email }}></author>
+      <author>{{ item.author_email }} ({{ item.author_name }})</author>
     </item>
     {%- endfor %}
   </channel>
@@ -90,7 +93,7 @@ tmpl_render = tmpl.render(
     description='RSS feed to follow the workflow of %s repository' % repository,
     link=args.link,
     last_build_date=datetime.now().strftime(DATETIME_RSS),
-    ttl=900,
+    ttl=args.ttl,
     item_list=log
 )
 
