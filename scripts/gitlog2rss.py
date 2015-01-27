@@ -14,13 +14,12 @@ RSS feed generator to follow git workflow (using git log)
 import argparse
 from datetime import datetime
 from jinja2 import Template
-import gitlog2rss # for __doc__
 import os # for chdir, getcwd, path.basename
 import re
 from subprocess import Popen, PIPE
 import sys
 
-parser = argparse.ArgumentParser(description=gitlog2rss.__doc__)
+parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("repository", help="path to GIT repository")
 parser.add_argument("link", help="URL of the RSS feed")
 parser.add_argument("target", help="path to RSS output file (or stdout if missing)", nargs='?', default='-')
