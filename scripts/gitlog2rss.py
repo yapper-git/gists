@@ -20,7 +20,7 @@ from subprocess import Popen, PIPE
 import sys
 
 VERSION = "2.0"
-version_str = "{} v.{}" % ("%(prog)s", VERSION)
+version_str = "{} v.{}".format("%(prog)s", VERSION)
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("repository",    help="path to GIT repository")
