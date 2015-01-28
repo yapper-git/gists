@@ -6,6 +6,7 @@
 #   * http://git-scm.com/book/fr/v2/Customizing-Git-Git-Hooks
 #   * http://blog.lost-theory.org/post/how-to-parse-git-log-output/
 #   * http://opensource.apple.com/source/Git/Git-19/src/git-htmldocs/pretty-formats.txt
+#   * http://www.rssboard.org/rss-profile#data-types-characterdata (escape &, < and >)
 
 """
 RSS feed generator to follow git workflow (using git log)
@@ -19,8 +20,14 @@ import re
 from subprocess import Popen, PIPE
 import sys
 
-VERSION = "2.0"
+VERSION = "2.1"
 version_str = "{} v.{}".format("%(prog)s", VERSION)
+
+def escape(string):
+    return string.replace('&', '&#x26;').replace('<', '&#x3C;').replace('>', '&#x3E;')
+
+def newline_to_br(string):
+    return string.replace('\n', '<br/>')
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("repository",    help="path to GIT repository")
@@ -57,10 +64,16 @@ log = log.decode('utf-8').strip('\n\x1e').split('\x1e')
 log = [row.strip().split("\x1f") for row in log]
 log = [dict(zip(GIT_COMMIT_FIELDS, row)) for row in log]
 
-# 'Fri Dec 26 22:13:36 2014 +0100' → 'Fri, 26 Dec 2014 22:13:36 +0100'
 pattern = re.compile(r'^(\w+) (\w+) (\d+) (\d{2}:\d{2}:\d{2}) (\d{4}) (.+)$')
 for commit in log:
+    # 'Fri Dec 26 22:13:36 2014 +0100' → 'Fri, 26 Dec 2014 22:13:36 +0100'
     commit['date'] = pattern.sub(r'\1, \3 \2 \5 \4 \6', commit['date'])
+
+    # Escape XML special characters (except quotes)
+    commit['author_name'] = escape(commit['author_name'])
+    commit['author_email'] = escape(commit['author_email'])
+    commit['subject'] = escape(commit['subject'])
+    commit['body'] = newline_to_br(escape(commit['body']))
 
 repository = args.reponame if args.reponame is not None else os.path.basename(os.path.realpath(args.repository))
 
