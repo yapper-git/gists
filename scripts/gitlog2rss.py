@@ -23,11 +23,14 @@ import sys
 VERSION = "2.1"
 version_str = "{} v.{}".format("%(prog)s", VERSION)
 
+
 def escape(string):
     return string.replace('&', '&#x26;').replace('<', '&#x3C;').replace('>', '&#x3E;')
 
+
 def newline_to_br(string):
     return string.replace('\n', '<br/>')
+
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("repository",    help="path to GIT repository")
@@ -115,4 +118,3 @@ else:
     os.chdir(pwd)
     with open(args.target, 'w') as output_file:
         output_file.write(tmpl_render)
-
