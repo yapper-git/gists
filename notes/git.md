@@ -4,7 +4,7 @@
 
 Interfaces graphiques : *gitk*, *gitg*, *giggle*
 
-L'essentiel des commandes utiles sont listées et expliquées sur [la documentation d'Archlinux](https://wiki.archlinux.org/index.php/git)).
+L'essentiel des commandes utiles sont listées et expliquées sur [la documentation d'Archlinux](https://wiki.archlinux.org/index.php/git).
 
 ## Commandes générales
 
@@ -17,7 +17,7 @@ L'essentiel des commandes utiles sont listées et expliquées sur [la documentat
 - **diff** : Lister les changements effectués depuis le dernier commit via `git diff [<file>]`
 - **log** : Lister (et parcourir) les derniers commits via `git log [-p|--stat]`
 - **pull** : Télécharger les nouveautés
-- **push** : Envoyer vos commits (nécessite une autorisation, irréversible, penser à faire un `git log -p` avant!)
+- **push** : Envoyer vos commits (nécessite une autorisation, irréversible, penser à faire un `git log -p` avant)
 
 ## Gestion des branches
 
