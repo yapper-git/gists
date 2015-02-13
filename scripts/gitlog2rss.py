@@ -40,6 +40,8 @@ parser.add_argument("-n", "--limit", help="number of commits to print. Default: 
 parser.add_argument("-r", "--reponame",
                     help="name of the GIT repository. Default: the basename of the repository's path")
 parser.add_argument("-t", "--ttl",   help="Time to Live of the output RSS. Default: 60", default=60)
+parser.add_argument("-d", "--diff", action="store_true",
+                    help="Print diff after commit message in item's description part. Default: do not print diff.")
 parser.add_argument("-v", "--version", action="version", version=version_str)
 args = parser.parse_args()
 
@@ -77,6 +79,11 @@ for commit in log:
     commit['author_email'] = escape(commit['author_email'])
     commit['subject'] = escape(commit['subject'])
     commit['body'] = newline_to_br(escape(commit['body']))
+    if args.diff:
+        p = Popen('git diff {0}^ {0}'.format(commit['id']), shell=True, stdout=PIPE)
+        (diff, _) = p.communicate()
+        diff = diff.decode('utf-8')
+        commit['body'] += '<br/><pre>{}</pre>'.format(diff)
 
 repository = args.reponame if args.reponame is not None else os.path.basename(os.path.realpath(args.repository))
 
