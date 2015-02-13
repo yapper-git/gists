@@ -16,37 +16,41 @@
 * SFTP : vsftpd
 * GIT : git-daemon.socket
 
-## Sauvegarde/Restauration
+## Backup/Restore
 
 ```bash
-sudo dd bs=1M if=/dev/sdX of=sdcard.img
-sudo dd bs=1M if=sdcard.img of=/dev/sdX
+sudo dd bs=1M if=/dev/sdX of=sdcard.img # Backup
+sudo dd bs=1M if=sdcard.img of=/dev/sdX # Restore
 ```
 
-## Réparation
+## Repair
+
+### Dirty bit (due to power cut)
 
 ```bash
 sudo fdisk -l
 sudo umount /dev/sdbX
-sudo fsck [-a] /dev/sdbX
+sudo fsck -a /dev/sdbX
+```
+
+### SD Card read only
+
+```bash
+sudo mount -o remount,rw /
+sudo systemctl --failed
+sudo systemctl restart ...
 ```
 
 ## OpenSSL
 
-Create 1 year self-signed certificate (and key)
 ```bash
+# Create 1 year self-signed certificate (and key)
+# http://conshell.net/wiki/index.php/OpenSSL_usage_tips_and_examples
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout yvand.dtdns.net.key -out yvand.dtdns.net.crt
-```
-
-Create 1 year self-signed certificate with existing key
-```bash
+# Create 1 year self-signed certificate with existing key
 openssl req -nodes -x509 -days 365 -new -key yvand.dtdns.net.key -out yvand.dtdns.net.crt
-```
 
-(http://conshell.net/wiki/index.php/OpenSSL_usage_tips_and_examples)
-
-Create self-signed certificate (you can change key size and days of validity)
-```bash
+# Create self-signed certificate (you can change key size and days of validity)
 openssl genrsa -des3 -out server.key 1024
 openssl req -new -key server.key -out server.csr
 cp server.key server.key.org
