@@ -384,7 +384,6 @@ root = tree.getroot()
 
 # from string
 root = ET.fromstring(country_data_as_string)
-```
 
 # Element
 element.tag    # str
