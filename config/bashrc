@@ -49,7 +49,6 @@ txtrst='\e[0m'    # Text Reset
 # Customize some nice variables
 ################################################################################
 
-
 export EDITOR="nano"
 export VISUAL="vim"
 export PATH="$PATH:$HOME/.local/bin:$HOME/.scripts"
@@ -68,9 +67,9 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias topten='du -sk $(ls -A) | sort -rn | head -10'
-hash colordiff 2> /dev/null > /dev/null && alias diff='colordiff' # requires colordir
 alias buggy-gnome='pkill -HUP gnome-shell'
 alias indexeddb-clean='rm -r ~/.mozilla/firefox/*/indexedDB/*'
+hash colordiff 2> /dev/null > /dev/null && alias diff='colordiff' # requires colordiff
 
 
 ################################################################################
@@ -82,7 +81,7 @@ PS2="\[${bldred}\]\\$\[${txtrst}\] "
 PS3=${PS2}
 PS4=${PS2}
 
- #PROMPT_COMMAND='if [ $? -eq 0 ]; then echo -e "${bldgrn}Done${txtrst}"; else echo -e "${bldred}Failed${txtrst}"; fi'
+#PROMPT_COMMAND='if [ $? -eq 0 ]; then echo -e "${bldgrn}Done${txtrst}"; else echo -e "${bldred}Failed${txtrst}"; fi'
 
 
 ################################################################################
@@ -137,23 +136,17 @@ function update-dev()
     done
 }
 
-# add folder to PYTHONPATH
+# add (current or given) folder to PYTHONPATH
 function pypath()
 {
     if [ $# -eq 0 ]; then
         PYTHONPATH="$PYTHONPATH:$(pwd)"
     else
         for FOLDER in "$@"; do
-            PYTHONPATH="$PYTHONPATH:$FOLDER"
+            PYTHONPATH="$PYTHONPATH:$(realpath $FOLDER)"
         done
     fi
     export PYTHONPATH
-}
-
-# simple letter substitution cypher (rotate by 13 places)
-function rot13()
-{
-    echo $@ | tr a-zA-Z n-za-mN-ZA-M
 }
 
 # put files in the user's trash
