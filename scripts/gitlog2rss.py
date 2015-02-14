@@ -87,7 +87,7 @@ for commit in log:
     commit['subject'] = escape(commit['subject'])
     commit['body'] = newline_to_br(escape(commit['body']))
     if args.verbose is not None:
-        commit['statdiff'] = escape(commit['statdiff'])
+        commit['statdiff'] = escape(commit['statdiff'].strip())
 
 repository = args.reponame if args.reponame is not None else os.path.basename(os.path.realpath(args.repository))
 
