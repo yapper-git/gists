@@ -20,9 +20,6 @@ import re
 from subprocess import Popen, PIPE
 import sys
 
-VERSION = "2.1"
-version_str = "{} v.{}".format("%(prog)s", VERSION)
-
 
 def escape(string):
     return string.replace('&', '&#x26;').replace('<', '&#x3C;').replace('>', '&#x3E;')
@@ -40,7 +37,7 @@ parser.add_argument("-n", "--limit", help="number of commits to print. Default: 
 parser.add_argument("-r", "--reponame",
                     help="name of the GIT repository. Default: the basename of the repository's path")
 parser.add_argument("-t", "--ttl",   help="Time to Live of the output RSS. Default: 60", default=60)
-parser.add_argument("-v", "--version", action="version", version=version_str)
+parser.add_argument("-v", "--verbose", action='count')
 args = parser.parse_args()
 
 pwd = os.getcwd()
@@ -51,15 +48,27 @@ except FileNotFoundError as e:
     print(str(e), file=sys.stderr)
     sys.exit(1)
 
-GIT_LIMIT = args.limit
-GIT_COMMIT_FIELDS = ['id', 'author_name', 'author_email', 'date', 'subject', 'body']
-GIT_LOG_FORMAT = ['%H', '%an', '%ae', '%ad', '%s', '%B']
-
 DATETIME_RSS = '%a, %d %b %Y %H:%M:%S +0100'  # or import email.utils
 
-# git log -n --format="%H %s..."
-GIT_LOG_FORMAT = '%x1f'.join(GIT_LOG_FORMAT) + '%x1e'
-p = Popen('git log -n %s --format="%s"' % (GIT_LIMIT, GIT_LOG_FORMAT), shell=True, stdout=PIPE)
+GIT_LIMIT = args.limit
+GIT_COMMIT_FIELDS = ['id', 'author_name', 'author_email', 'date', 'subject', 'body', 'statdiff']
+GIT_LOG_FORMAT = ['%H', '%an', '%ae', '%ad', '%s', '%B']
+GIT_LOG_FORMAT = '%x1e' + '%x1f'.join(GIT_LOG_FORMAT) + '%x1f'
+
+if args.verbose is None:
+    GIT_OPTIONS = ''
+elif args.verbose == 1:
+    GIT_OPTIONS = '--stat'
+elif args.verbose == 2:
+    GIT_OPTIONS = '-p'
+else:
+    GIT_OPTIONS = '--stat -p'
+
+
+p = Popen('git log -n {} --format="{}" {}'.format(
+    GIT_LIMIT,
+    GIT_LOG_FORMAT,
+    GIT_OPTIONS), shell=True, stdout=PIPE)
 (log, _) = p.communicate()
 if p.returncode != 0:
     sys.exit(2)
@@ -77,6 +86,8 @@ for commit in log:
     commit['author_email'] = escape(commit['author_email'])
     commit['subject'] = escape(commit['subject'])
     commit['body'] = newline_to_br(escape(commit['body']))
+    if args.verbose is not None:
+        commit['statdiff'] = escape(commit['statdiff'].strip())
 
 repository = args.reponame if args.reponame is not None else os.path.basename(os.path.realpath(args.repository))
 
@@ -93,7 +104,14 @@ tmpl = Template('''\
     {%- for item in item_list %}
     <item>
       <title>{{ item.subject }}</title>
+      {%- if verbose %}
+      <description><![CDATA[
+        {{ item.body }}
+        <pre>{{ item.statdiff }}</pre>
+        ]]></description>
+      {%- else %}
       <description><![CDATA[{{ item.body }}]]></description>
+      {%- endif %}
       <guid isPermaLink="false">{{ item.id }}</guid>
       <pubDate>{{ item.date }}</pubDate>
       <author>{{ item.author_email }} ({{ item.author_name }})</author>
@@ -104,6 +122,7 @@ tmpl = Template('''\
 ''')
 
 tmpl_render = tmpl.render(
+    verbose=args.verbose is not None,
     title=repository,
     description='RSS feed to follow the workflow of %s repository' % repository,
     link=args.link,
