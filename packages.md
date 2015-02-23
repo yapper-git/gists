@@ -103,6 +103,7 @@
 * libnotify-bin
 * brasero
 * bless
+* tree
 
 * ubuntu-minimal, ubuntu-restricted-extras, ubuntu-standard
 * openjdk-6-jre, icedtea6-plugin
