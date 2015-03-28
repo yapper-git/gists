@@ -35,6 +35,12 @@
 
 ## Trucs et astuces
 
+### Éteindre l'écran (économise la batterie)
+
+```bash
+xset dpms force off
+```
+
 ### [Aspirer un site](http://forum.ubuntu-fr.org/viewtopic.php?id=78954)
 
 ```bash
