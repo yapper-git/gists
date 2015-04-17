@@ -66,3 +66,59 @@ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 * Editer `/etc/resolv.conf` et mettre dedans `"nameserver 127.0.0.1"` (Perso, j'ai rajouté à la fin du fichier /etc/dhcpd.conf la ligne suivante "nohook resolv.conf") (essayer avec /etc/resolv.conf.tail|head)
 * Faire un `sudo chmod g+w /var/named` si `systemctl status named` affiche du rouge :)
 * Pour networkmanager (pas sur mon RPi qui utilise dhcp), créer un fichier exécutable(!) dans `/etc/Networkmanager/dispatcher.d/` contenant : `cp -f /etc/resolv.conf.myDNSoverride /etc/resolv.conf`
+
+## Django
+
+- Install `python-django`, `python-pillow` and `uswgi-plugin-python` packages
+- Configure nginx `/etc/nginx/nginx.conf`
+```
+[...]
+
+    server {
+        [...]
+
+        # Django media
+        location /media {
+            alias /path/to/media;
+        }
+
+        # Django static
+        location /static {
+            alias /path/to/static;
+        }
+
+        # Finally, send all non-media requests to the Django server.
+        location / {
+            uwsgi_pass unix:/var/run/uwsgi/django.sock;
+            include uwsgi_params;
+        }
+```
+- Configure uwsgi `/etc/uswgi`
+```
+# How to use Django with uWSGI
+# https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/uwsgi/
+
+[uwsgi]
+plugins = python
+chdir = /path/to/mysite
+module = mysite.wsgi:application
+#env = SECRET_KEY=topsecret
+master = True
+pidfile = /var/run/uwsgi/%n.pid
+socket = /var/run/uwsgi/%n.sock
+#processes = 4
+#threads = 2
+uid = http
+gid = http
+harakiri = 20
+max-request = 5000
+vacuum = True
+#logto = /var/log/uwsgi/%n.log
+#daemonize = /var/log/uwsgi/%n.log
+```
+- Start and enable nginx and uwsgi@django.socket
+```shell
+export SECRET_KEY=topsecret
+mkdir static collectstatic
+python manage.py collectstatic
+```
