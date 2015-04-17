@@ -396,3 +396,9 @@ element.iter('neighbor')
 
 element.findall('xpath')
 ```
+
+---
+
+`s[i:j:k]`
+
+The slice of s from i to j is defined as the sequence of items with index k such that i <= k < j. If i or j is greater than len(s), use len(s). If i is omitted or None, use 0. If j is omitted or None, use len(s). If i is greater than or equal to j, the slice is empty.
