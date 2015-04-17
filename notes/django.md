@@ -1,9 +1,7 @@
 # Django
 
 - [Tutoriel OC: Développez votre site web avec le framework Django](http://openclassrooms.com/courses/developpez-votre-site-web-avec-le-framework-django)
-- [Official documentation](https://docs.djangoproject.com/en/1.7/)
-
-- [Writing custom django-admin commands](https://docs.djangoproject.com/en/1.7/howto/custom-management-commands/)
+- [Official documentation](https://docs.djangoproject.com/en/stable/)
 
 ## Présentation de Django
 
@@ -14,20 +12,10 @@
 - Ce cours traite de la version 1.7, sortie en septembre 2014. Nous ne garantissons pas que les exemples donnés soient compatibles avec des versions antérieures et postérieures.
 
 ###  Le fonctionnement de Django
+- Django respecte l'architecture MVT, directement inspirée du très populaire modèle MVC ;
 - Django gère de façon autonome la réception des requêtes et l'envoi des réponses au client (partie contrôleur) ;
 - Un projet est divisé en plusieurs applications, ayant chacune un ensemble de vues, de modèles et de schémas d'URL ;
 - Si elles sont bien conçues, ces applications sont réutilisables dans d'autres projets, puisque chaque application est indépendante.
-
-```shell
-apt-get install python-pip
-pip install Django==1.7
-pip install Django --upgrade
-```
-
-```python
-import django
-django.get_version()
-```
 
 ### Gestion d'un projet
 - L'administration de projet s'effectue via le script `manage.py`. Tout particulièrement, la création d'un projet se fait via la commande `django-admin.py startproject mon_projet` ;
@@ -86,9 +74,140 @@ django.get_version()
 ### La gestion de fichiers
 TODO
 
+
+## Extraits de code
+
+### Installer django
+
+```shell
+apt-get install python-pip
+pip install Django==1.8
+pip install Django --upgrade
+```
+
+## Obtenir le numéro de version
+
+```shell
+python -c "import django; print(django.get_version())"
+```
+
+```python
+import django
+django.get_version()
+```
+
+## Vues
+
+```python
+from django.http import HttpResponse, Http404
+from django.shortcuts import redirect, render
+
+def hello_world(request):
+    return HttpResponse(
+        request.GET['msg']
+        if 'msg' in request.GET
+        else 'Hello world!')
+
+def error404(request):
+    raise Http404
+
+def redirect(request):
+    return redirect("https://www.djangoproject.com")
+    # or return redirect('blog.views.view_article', id_article=42)
+    # or return redirect(hello_world)
+```
+
+## Templates
+
+Filtres :
+- truncatewords: `{{ texte|truncatewords:80 }}`
+- pluralize: `Vous avez message{{ nb_messages|pluralize }}`,
+  `Il y a {{ nb_chevaux }} chev{{ nb_chevaux|pluralize:"al,aux" }}`
+- default: `Bienvenue {{ pseudo|default:"visiteur" }}`
+- add: `{{ nombre1 }} + {{ nombre2 }} = {{ nombre1|add:nombre2 }}`
+- safe
+- length
+- …
+
+```
+{% extends "base.html" %}
+{% block title %} … {% endblock %}
+{% if condition %} … {% elif condition %} … {% else %} … {% endif %}
+{% for object in object_list %} … {% empty %} … {% endfor%}
+{% url "myapp.views.myview" 42 %}
+{% comment %} … {% endcomment %}
+{% load staticfiles %}<img src="{% static "my_app/myexample.jpg" %}" alt="My image"/>
+```
+
+## Modèles
+
+```
+from django.db import models
+
+class Article(models.Model):
+    titre = models.CharField(max_length=100)
+    auteur = models.CharField(max_length=42)
+    contenu = models.TextField(null=True)
+    date = models.DateTimeField("Date de parution", auto_now_add=True, auto_now=False)
+
+    def __str__(self):  # pour l'administration
+        return self.titre
+```
+
+```shell
+python manage.py shell
+```
+
+## Secret key
+
+```python
+import os
+
+"""
+Two things are wrong with Django's default `SECRET_KEY` system:
+
+1. It is not random but pseudo-random
+2. It saves and displays the SECRET_KEY in `settings.py`
+
+This snippet gets an environment variable `DJANGO_SECRET_KEY`
+
+The result is a random and safely hidden `SECRET_KEY`.
+"""
+
+try:
+    SECRET_KEY
+except NameError:
+    SECRET_FILE = os.path.join(PROJECT_DIR, 'secret.txt')
+    try:
+        SECRET_KEY = open(SECRET_FILE).read().strip()
+    except IOError:
+        SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+```
+
+```
+SECRET_KEY = ''.join([random.SystemRandom().choice("{}{}{}".format(string.ascii_letters, string.digits, string.punctuation)) for i in range(50)])
+```
+
 ## En vrac
 
-stackoverflow.com/questions/2260727/accessing-local-django-webserver-from-outside-world
 ```bash
 python manage.py runserver 0.0.0.0:8000
 ```
+
+- [Writing custom django-admin commands](https://docs.djangoproject.com/en/stable/howto/custom-management-commands/)
+- http://djangosnippets.org/
+- https://www.djangopackages.com/
+
+Pypi est l'index des paquets Python de référence (gère les dépendances)
+
+```bash
+django-admin.py startproject crepes_bretonnes
+
+python manage.py migrate
+python manage.py runserver [port]
+python manage.py runserver 0.0.0.0:8000
+python manage.py help
+python manage.py startapp blog
+```
+
+Syndication: https://docs.djangoproject.com/fr/1.7/ref/contrib/syndication/
