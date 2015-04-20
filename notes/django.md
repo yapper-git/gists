@@ -75,6 +75,30 @@
 TODO
 
 
+## Techniques avancées
+
+### Les utilisateurs
+TODO
+
+### Les messages
+TODO
+
+### La mise en cache
+TODO
+
+### La pagination
+TODO
+
+### L'internationalisation
+TODO
+
+### Les tests unitaires
+TODO
+
+### Ouverture vers de nouveaux horizons : django.contrib
+TODO
+
+
 ## Extraits de code
 
 ### Installer django
@@ -103,18 +127,21 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import redirect, render
 
 def hello_world(request):
-    return HttpResponse(
-        request.GET['msg']
-        if 'msg' in request.GET
-        else 'Hello world!')
+    message = request.GET['msg'] if 'msg' in request.GET else 'Hello world!'
+    return HttpResponse(message)
 
 def error404(request):
-    raise Http404
+    raise Http404("Road not found") # or raise Http404
 
 def redirect(request):
     return redirect("https://www.djangoproject.com")
-    # or return redirect('blog.views.view_article', id_article=42)
-    # or return redirect(hello_world)
+    # or return redirect(hello_world, permanent=True)
+    # or return redirect('myapp:url_name', id_article=42)
+    # or return redirect('myapp.views.myview', id_article=42)
+
+def date_actuelle(request):
+    return render(request, 'myapp/date.html', {'date': datetime.now()})
+    # locals()
 ```
 
 ## Templates
@@ -125,6 +152,7 @@ Filtres :
   `Il y a {{ nb_chevaux }} chev{{ nb_chevaux|pluralize:"al,aux" }}`
 - default: `Bienvenue {{ pseudo|default:"visiteur" }}`
 - add: `{{ nombre1 }} + {{ nombre2 }} = {{ nombre1|add:nombre2 }}`
+- linebreaks
 - safe
 - length
 - …
@@ -157,6 +185,63 @@ class Article(models.Model):
 ```shell
 python manage.py shell
 ```
+
+```python
+article = Article(author='Me', title='My Article')
+article.full_clean() # raise django.core.exceptions.ValidationError
+article.save() # raise django.db.utils.IntegrityError…
+# or article.create()
+article.delete()
+
+# QuerySet : all, filter, exclude, order_by, reverse, count, distinct…
+Articles.objects.all()
+Articles.objects.filter(
+    author='dupond',
+    title__contains/startswith='keyword'
+    date__lte=datetime.now()) # or .exclude()
+Articles.objects.order_by('field1', '-field2')
+Articles.objects.update(author='Anonymous')
+
+Article.objects.get(author='dupont') # idem filter/exclude # raise MultipleObjectsReturned
+Article.objects.get_or_create(author='dupont', )
+```
+
+### Relations
+
+[https://docs.djangoproject.com/en/1.8/topics/db/examples/]
+
+- [Many-to-One relationships](https://docs.djangoproject.com/en/1.8/topics/db/examples/many_to_one/)
+- [Many-to-many relationships](https://docs.djangoproject.com/en/1.8/topics/db/examples/many_to_many/)
+#### OneToMany
+
+```
+class Category(models.Model):
+    pass
+
+class Article(models.Model):
+     category = models.ForeignKey('Category')
+
+article.category
+category.article_set.all()
+Articles.objects.filter(category__name__contains='and')
+```
+
+### OneToOne
+
+```
+class Engine(models.Model):
+    pass
+
+class Vehicle(models.Model):
+     engine = models.OneToOneField(Engine)
+
+# create engine first, then create vehicule
+vehicle.engine
+engine.vehicle # if available
+vehicle.objects.get(engine__name="V8")
+```
+
+
 
 ## Secret key
 
@@ -210,4 +295,6 @@ python manage.py help
 python manage.py startapp blog
 ```
 
-Syndication: https://docs.djangoproject.com/fr/1.7/ref/contrib/syndication/
+Syndication: https://docs.djangoproject.com/fr/1.8/ref/contrib/syndication/
+
+(?P<slug>[-_\w]+)
