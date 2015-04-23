@@ -295,7 +295,7 @@ TODO
 ## Un peu de mathématiques
 
 - [Module **math**](https://docs.python.org/3/library/math.html)
-    + Fonction usuelles : *pow, *sqrt*, *exp*, *fabs*
+    + Fonction usuelles : *pow*, *sqrt*, *exp*, *fabs*
     + Trigonométrie : *degrees*, *radians*, *cos*, *acos*, etc.
     + Arrondir un nombre : *ceil*, *floor*, *trunc*
     + Constantes usuelles : *pi*, *e*
