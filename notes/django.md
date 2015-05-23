@@ -78,6 +78,28 @@
 
 ## Techniques avancées
 
+### Les vues génériques
+- Django fournit un ensemble de classes permettant d'éviter de réécrire plusieurs fois le même type de vue (affichage d'un template statique, liste d'objets, création d'objets…) ;
+- Les vues génériques peuvent être déclarées directement au sein de `urls.py` (cas le plus pratique pour les `TemplateView`) ou dans `views.py` ;
+- Chaque vue générique dispose d'un ensemble d'attributs permettant de définir ce que doit faire la vue : modèle concerné, template à afficher, gestion de la pagination, filtres… ;
+- Il est possible d'automatiser les formulaires d'ajout, de mise à jour et de suppression d'objets via des vues génériques ;
+- Le module `django.views.generic` regorge de classes (plusieurs dizaines en tout), n'hésitez pas à regarder si l'une d'entre elles fait ce que vous souhaitez avant de vous lancer.
+
+Ressources :
+- [Documentation officielle](https://docs.djangoproject.com/en/stable/ref/class-based-views/)
+- [ccbv.co.uk](http://ccbv.co.uk/)
+
+### Techniques avancées dans les modèles
+TODO
+
+### Simplifions nos templates : filtres, tags et contextes
+TODO
+
+### Les signaux et middlewares
+TODO
+
+## Des outils supplémentaires
+
 ### Les utilisateurs
 TODO
 
@@ -205,6 +227,34 @@ Articles.objects.update(author='Anonymous')
 
 Article.objects.get(author='dupont') # idem filter/exclude # raise MultipleObjectsReturned
 Article.objects.get_or_create(author='dupont', )
+```
+
+## Vues génériques
+
+```python
+# blog/views.py
+from django.views.generic import TemplateView
+
+class FAQView(TemplateView):
+   template_name = "blog/faq.html"
+
+# blog/urls.py
+from django.conf.urls import url
+from blog.views import FAQView
+
+urlpatterns = [
+   url(r'^faq$', FAQView.as_view()),
+]
+```
+
+```python
+# blog/urls.py
+from django.conf.urls import url
+from django.views.generic import TemplateView
+
+urlpatterns = [
+   url(r'^faq', TemplateView.as_view(template_name='blog/faq.html')),
+]
 ```
 
 ### Relations
