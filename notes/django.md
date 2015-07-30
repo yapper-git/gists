@@ -90,10 +90,16 @@ Ressources :
 - [ccbv.co.uk](http://ccbv.co.uk/)
 
 ### Techniques avancées dans les modèles
-TODO
+- La classe Q permet d'effectuer des requêtes complexes avec les opérateurs « OU », « ET » et « NOT ». Avg, Max et Min permettent d'obtenir respectivement la moyenne, le maximum et le minimum d'une certaine colonne dans une table. Elles peuvent être combinées avec Count pour déterminer le nombre de lignes retournées.
+- L'héritage de modèles permet de factoriser des modèles ayant des liens entre eux. Il existe plusieurs types d'héritage : abstrait, classique et les modèles proxy.
+- L'application ContentType permet de décrire un modèle et de faire des relations génériques avec vos autres modèles (pensez à l'exemple des commentaires !).
 
 ### Simplifions nos templates : filtres, tags et contextes
-TODO
+- Django permet aux développeurs d'étendre les possibilités des templates en créant des filtres et des tags.
+- Les filtres et tags créés sont organisés par modules. Pour utiliser un filtre ou un tag il faut charger son module via `{% load nom_module %}`.
+- Les filtres sont de simples fonctions, prenant en entrée 1 ou 2 arguments et renvoyant toujours une chaîne de caractères.
+- Le contexte des templates est l'ensemble des variables disponibles et utilisables dans un template. Ce contexte est rempli par toutes les fonctions citées dans `TEMPLATE_CONTEXT_PROCESSORS`, puis par la vue appelée et enfin par les éventuels tags du template.
+- Les tags permettent des traitements plus complexes sur les données à afficher. Les tags peuvent avoir une « mémoire », plusieurs arguments, former des blocs…
 
 ### Les signaux et middlewares
 TODO
@@ -104,7 +110,10 @@ TODO
 TODO
 
 ### Les messages
-TODO
+- Les messages permettent d'afficher des notifications à l'utilisateur, en cas de succès ou d'échec lors d'une action, ou si un événement particulier se produit.
+- Il existe différents types de messages : ceux d'information, de succès, d'erreur, d'avertissement, et enfin de débogage.
+- Il est possible de créer son propre type de message et de configurer son comportement.
+- L'affichage de messages peut être limité : chaque type de message est caractérisé par une constante entière, et nous pouvons afficher les messages ayant un niveau supérieur ou égal à un certain seuil, via `messages.set_level`.
 
 ### La mise en cache
 TODO
