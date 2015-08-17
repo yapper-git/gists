@@ -60,12 +60,19 @@ find [<folder>] ! -user <user>
 find [<folder>] ! -group <user>
 ```
 
-### Renommage de l'extension de fichiers
+### Renommage en lots
+
+Voir [Parameter expansion](http://wiki.bash-hackers.org/syntax/pe#case_modification) pour plus de détails.
 
 ```bash
-for FILE in *.html
-do
-    mv "$FILE" "${FILE%.html}.txt"
+# Rename all *.txt to *.md
+for FILE in *.txt; do
+    mv "$FILE" "${FILE%.txt}.md"  # or "${FILE/%.txt/.md}"
+done
+
+# Rename all *.txt to lowercase
+for FILE in *.txt; do
+  mv "$FILE" "${FILE,,}"
 done
 
 #function myrename() {
