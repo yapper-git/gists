@@ -62,7 +62,7 @@ find [<folder>] ! -group <user>
 
 ### Renommage en lots
 
-Voir [Parameter expansion](http://wiki.bash-hackers.org/syntax/pe#case_modification) pour plus de détails.
+Voir [parameter expansion](http://wiki.bash-hackers.org/syntax/pe#case_modification) pour plus de détails.
 
 ```bash
 # Rename all *.txt to *.md
@@ -129,7 +129,7 @@ function nonasciichars()
 
 ### [dos2unix](http://www.commentcamarche.net/faq/5978-sed-conversion-retours-chariots-dos-crlf-unix-lf)
 
-```
+```bash
 # dos2unix
 sed 's/\x0D$//' "$1" # for GNU Sed or 's/^M$//'
 
@@ -274,7 +274,7 @@ function cdb()
 
 ### PS1 variables
 
-```
+```bash
 # List of available codes for PS1 variable :
 #
 #  \a an ASCII bell character (07)
