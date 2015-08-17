@@ -53,3 +53,13 @@ git config --global color.branch auto
 git config --global user.name "votre_pseudo"
 git config --global user.email moi@email.com
 ```
+
+## Gestion de droits pour serveur git partagé
+
+```bash
+git init --bare --shared foo.git
+cd foo.git
+chgrp -R git .
+chmod -R g+rwX .
+find . -type d -exec chmod g+s '{}' +
+```
