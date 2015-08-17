@@ -73,10 +73,16 @@ done
 #}
 ```
 
-### Exporter ODF (.odt, .ods, etc.) to PDF using LibreOffice
+### Export ODF (.odt, .ods, etc.) to PDF using LibreOffice
 
 ```bash
 libreoffice --headless --invisible --convert-to pdf <file>
+```
+
+### Convert EPUB to MOBI
+
+```bash
+ebook-convert myfile.epub myfile.mobi  # requires calibre
 ```
 
 ### IP fixe
