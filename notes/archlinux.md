@@ -40,10 +40,16 @@ pacman -Si package_name
 pacman -Qii | grep ^MODIFIED | cut -f2
 
 # list all packages no longer required as dependencies (orphans)
-pacman -Qdt
+pacman -Qdt  # add q to hide package version
+
+# list all packages explicitly installed
+pacman -Qe  # add q to hide package version
 
 # list all packages explicitly installed and not required as dependencies
-pacman -Qet
+pacman -Qet  # add q to hide package version
+
+# list all foreign packages
+pacman -Qm  # add q to hide package version
 
 # retrieve a list of the files installed by a package
 pacman -Ql package_name
