@@ -40,6 +40,8 @@
 * SoundConverter
 * Sound Juicer
 * LilyPond
+* musescore
+* frescobaldi
 * TiMidity++
 * TuxGuitar
 * Audacity
