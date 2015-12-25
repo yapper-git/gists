@@ -70,7 +70,7 @@ alias fgrep='fgrep --color=auto'
 alias topten='du -sk $(ls -A) | sort -rn | head -10'
 alias buggy-gnome='pkill -HUP gnome-shell'
 alias indexeddb-clean='rm -r ~/.mozilla/firefox/*/indexedDB/*'
-hash colordiff 2> /dev/null > /dev/null && alias diff='colordiff' # requires colordiff
+hash colordiff 2> /dev/null && alias diff='colordiff' # requires colordiff
 
 
 ################################################################################
