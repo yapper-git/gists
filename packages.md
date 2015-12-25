@@ -93,7 +93,7 @@
 * terminator
 * screen
 * irssi
-* build-essential checkinstall fakeroot
+* base-devel (make gcc) / build-essential checkinstall fakeroot
 * Cheese
 * GParted
 * gtk-recordmydesktop
