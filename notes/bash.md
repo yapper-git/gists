@@ -35,6 +35,19 @@
 
 ## Trucs et astuces
 
+### diff local and/or remote files via ssh
+
+```bash
+diff /path/to/file <(ssh remotehost 'cat /path/to/file')
+# or with a merge tool
+vimdiff /path/to/file scp://remotehost//path/to/file
+```
+
+In vimdiff you can use:
+- CTRL+W twice to switch between the windows
+- `do` (= `:diffput`) or `dp` (= `:diffget`) to merge changes
+- `]c`, `[c` to jump to the next or previous difference
+
 ### xrandr (changer la résolution de l'écran)
 
 ```bash
