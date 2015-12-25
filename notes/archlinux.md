@@ -17,7 +17,7 @@
 * SSH (`PermitRootLogin`)
 * MySQL (`/usr/bin/mysql_secure_installation`)
 * PostgreSQL
-* PHP: (php-fpm, php-gd, php-intl, php-sqlite, php-tidy, php-xsl, php-apc)
+* PHP (php-fpm, php-gd, php-intl, php-sqlite, php-tidy, php-xsl)
 * Nginx
 * [PhpMyAdmin](https://wiki.archlinux.org/index.php/PhpMyAdmin#Nginx_Configuration) (il faut que `/etc/webapps/` soit dans `open_basedir` de `php.ini` pour que `AllowNoPassword = true` soit pris en compte)
 
@@ -55,7 +55,7 @@ pacman -Qm  # add q to hide package version
 pacman -Ql package_name
 ```
 
-## usefull package
+## useful package
 
 * gnome-system-monitor
 * gnome-system-log
