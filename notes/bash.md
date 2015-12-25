@@ -47,6 +47,7 @@ In vimdiff you can use:
 - CTRL+W twice to switch between the windows
 - `do` (= `:diffput`) or `dp` (= `:diffget`) to merge changes
 - `]c`, `[c` to jump to the next or previous difference
+- `:diffupdate` to refresh
 
 ### xrandr (changer la résolution de l'écran)
 
