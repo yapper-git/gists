@@ -35,6 +35,13 @@
 
 ## Trucs et astuces
 
+### [Partager un dépôt bare GIT](http://serverfault.com/questions/26954/how-do-i-share-a-git-repository-with-multiple-users-on-a-machine)
+
+```bash
+chgrp -R <whatever group> gitrepo
+chmod -R g+swX gitrepo
+```
+
 ### diff local and/or remote files via ssh
 
 ```bash
