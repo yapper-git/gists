@@ -51,7 +51,12 @@ openssl rsa -in server.key.org -out server.key
 openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 ```
 
+## Activer l'IPv6
+
+Ajouter `ipv6.disable=0` dans `/boot/cmdline.txt`.
+
 ## Repair
+
 
 ### Dirty bit (due to power cut)
 
