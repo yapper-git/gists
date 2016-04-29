@@ -86,6 +86,7 @@
 ## Utilitaires
 
 * git, gitg, giggle
+* wget
 * rsync
 * unzip
 * meld

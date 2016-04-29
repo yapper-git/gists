@@ -8,7 +8,7 @@
     - Set passwords using `passwd` command
     - Remove `alarm` user with `userdel -r alarm`
 - Update, then install some packages
-    - base-devel git rsync unzip screen pkgfile bash-completion mlocate dnsutils whois imagemagick
+    - base-devel git wget rsync unzip screen pkgfile bash-completion mlocate dnsutils whois imagemagick
     - vim emacs-nox
     - lilypond texlive-most
     - nginx
