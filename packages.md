@@ -2,120 +2,122 @@
 
 ## Bureautique
 
-* LibreOffice
-* Polices de caractères (microsoft, bistream-vera, dejavu, freefont, liberation, ubuntu, dustin...)
-* aspell, myspell, hunspell
-* Calibre
-* Gnote, Tomboy
-* LaTeX (texlive, texlive-lang-french, texlive-latex-extra)
-* Gummi, Texmaker
-* Dia
-* Verbiste
+- LibreOffice (libreoffice-still libreoffice-still-fr)
+- Polices de caractères (ttf-bitstream-vera ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-linux-libertine ttf-ubuntu-font-family ttf-ms-fonts ttf-ms-win10)
+- Dictionnaires (aspell-fr hunspell-fr)
+- Calibre
+- LaTeX (texlive texlive-science texlive-langextra texlive-fontsextra texlive-pstricks)
+- Gummi
+- Texmaker
+- Dia
+- Verbiste
 
 ## Éditeur de texte
 
-* gedit (+plugins)
-* geany (+plugins)
-* nano
-* vim
-* emacs
+- gedit gedit-plugins
+- geany geany-plugins
+- nano
+- vim
+- emacs
 
 ## Graphisme
 
-* GIMP
-* Inkscape
-* Shotwell
-* GThumb
-* imagemagick
+- GIMP
+- Inkscape
+- Shotwell
+- GThumb
+- imagemagick
 
 ## Musique & Vidéo
 
-* VLC
-* libdvdcss, libdvdread
-* Pitivi
-* Totem
-* Moovida
-
-* Quod Libet, Ex Falso (+plugins)
-* SoundConverter
-* Sound Juicer
-* LilyPond
-* musescore
-* frescobaldi
-* TiMidity++
-* TuxGuitar
-* Audacity
-* vorbis-tools
-* dir2ogg
+- VLC
+- libdvdcss, libdvdread
+- Pitivi
+- Moovida
+- Quod Libet, Ex Falso (+plugins)
+- SoundConverter
+- Sound Juicer
+- LilyPond
+- musescore
+- frescobaldi
+- TiMidity++ (timidity++ timidity-freepats)
+- TuxGuitar
+- Audacity
+- vorbis-tools
+- dir2ogg
+- brasero
 
 ## Internet
 
-* Firefox
-* Thunderbird
-* Chromimum
-* Epiphany
+- Firefox (firefox firefox-i18n-fr firefox-theme-gnome)
+- Thunderbird (thunderbird thunderbird-i18n-fr)
+- Chromimum
+- flashplugin
 
 ## Éducation
 
-* GeoGebra
-* Xcas
-* AlgoBox
-* TuxMath
-* GCompris
-* GNU Solfege
+- GeoGebra
+- Xcas
+- AlgoBox (AUR)
+- TuxMath
+- GCompris
+- GNU Solfege
 
 ## Jeux
 
-* Blobby Volley
-* Globulation2
-* sgt-puzzle (Simon Tatham's Portable Puzzle Collection)
-* SuperTux
-* SuperTuxKart
-* Teeworlds
-* Pingus
-* Unknown Horizons
-* Warmux
-* Widelands
-* XMoto
-* Minetest
-* Widelands
-* Frozen Bubble
-* Gnome Games, Gnome Hearts
-* DosBox
+- Blobby Volley
+- Globulation2
+- sgt-puzzle (Simon Tatham's Portable Puzzle Collection)
+- SuperTux
+- SuperTuxKart
+- Teeworlds
+- Pingus
+- Unknown Horizons
+- Warmux
+- Widelands
+- XMoto
+- Minetest
+- Widelands
+- Frozen Bubble
+- Gnome Games, Gnome Hearts
+- DosBox
 
 ## Utilitaires
 
-* git, gitg, giggle
-* wget
-* rsync
-* unzip
-* meld
-* pyrenamer
-* terminator
-* screen
-* irssi
-* base-devel (make gcc) / build-essential checkinstall fakeroot
-* Cheese
-* GParted
-* gtk-recordmydesktop
-* gobby
-* PDF Mod
-* pdftk
-* Wireshark
-* libgsf-bin
-* libnotify-bin
-* brasero
-* bless
-* tree
-
-* ubuntu-minimal, ubuntu-restricted-extras, ubuntu-standard
-* openjdk-6-jre, icedtea6-plugin
+- mlocate (pour `locate` et `updatedb`)
+- dnsutils (pour `host`)
+- net-tools
+- wget
+- whois
+- git gitg giggle
+- lftp
+- rsync
+- unzip
+- meld
+- terminator
+- screen
+- irssi
+- base-devel (make gcc) / build-essential checkinstall fakeroot
+- Cheese
+- GParted
+- gtk-recordmydesktop
+- pdfmod
+- pdftk
+- Wireshark
+- bless
+- tree
+- ntfs-3g
+- nodejs
+- flake8
+- perl-xml-sax-expat
+- pyrenamer (AUR)
+- epubcheck (AUR)
+- dropbox nautilus-dropbox (archlinuxfr)
 
 ## Serveur
 
-* openssh (client/server)
-* nginx
-* apache2
-* php5, php5-cli, php-pear, php5-imagick, php5-mysql
-* mysql-server
-* phpmyadmin
+- openssh (client/server)
+- nginx
+- php
+- mariadb
+- phpmyadmin

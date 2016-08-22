@@ -15,13 +15,15 @@
 - [pacman](https://wiki.archlinux.org/index.php/pacman#Configuration): uncomment `Color` and `TotalDownload` in `/etc/pacman.conf`
 - [sudo: use wheel group](https://wiki.archlinux.org/index.php/sudo): install `sudo`, edit `/etc/sudoers` using `visudo` command, uncomment wheel related line.
 - [avahi: hostname resolution](https://wiki.archlinux.org/index.php/Avahi#Hostname_resolution)
+- [Disable PC speaker beep](https://wiki.archlinux.org/index.php/Disable_PC_speaker_beep#Globally)
+- [Utiliser le dépôt archlinuxfr via yaourt](https://wiki.archlinux.fr/Depot_archlinuxfr)
 
 ## Configuration (server)
 
 - SSH (`PermitRootLogin`)
 - MariaDB ( `/usr/bin/mysql_secure_installation`) ou PostgreSQL
 - Nginx
-    + [PhpMyAdmin](https://wiki.archlinux.org/index.php/PhpMyAdmin#Nginx_Configuration) (il faut que `/etc/webapps/` soit dans `open_basedir` de `php.ini` pour que `AllowNoPassword = true` soit pris en compte)
+    + [PhpMyAdmin](https://wiki.archlinux.org/index.php/PhpMyAdmin#Nginx_Configuration)
     + PHP (`php php-fpm php-gd php-intl php-sqlite php-tidy php-xsl`)
     + Django (`python3 python-pip python-virtualenv uwsgi-plugin-python`)
 
@@ -59,51 +61,9 @@ pacman -Qm  # add q to hide package version
 pacman -Ql package_name
 ```
 
-## useful package
-
-- gnome-system-monitor
-- gnome-system-log
-- gnome-search-tool
-- nautilus-open-terminal
-- gcalctool
-- mlocate (for locate and updatedb)
-- dnsutils (for host)
-- whois
-
 ## En vrac
 
-### Utiliser le protocole Zerogroup/Bonjour/Personnes de proximité
-
-(Attention, c'est le *souk* ici)
-
-sur le RPI :
-```bash
-pacman -S avahi nss-mdns
-systemctl restart dbus
-systemctl start dbus
-systemctl enable dbus
-```
-
-NB : La dernière action suffit !! (sudo systemctl enable avahi-daemon)
-- (Installer nss-mdns puis ajouter mdns4 à la liste des hosts dans le fichier /etc/nsswitch.conf)
-- démarrer le deamon avahi-daemon
-
-### Bumblebee et les mises à jours
-
-```bash
-sudo pacman -Rdd libgl
-yaourt -S nvidia-utils-bumblebee
-yaourt -S nvidia-bumblebee
-sudo pacman -S libgl
-```
-
-⚠ La version compilée dont l'être sous le noyau lancé pour fonctionner.
-
-Il faut lancer un jeu avec optirun (sinon c'est le même chipset graphique que pour le bureau).
-Il est conseillé d'utiliser bbswitch, qui économise la batterie (éteint la carte graphique qui sinon tourne en continue!)
-bbswitch doit être réinstaller à chaque mise à jour du noyau !
-
-### Partage d'imprimantes (réseau local)
+### Partage d'imprimantes (sur réseau local)
 
 Passer par `system-config-printer`
 (et non gnome-control-center qui ne fonctionne pas, même s'il propose de l'ajouter mais n'y arrive pas...)
