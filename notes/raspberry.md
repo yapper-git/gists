@@ -20,12 +20,28 @@
 
 ## Services
 
-- SSH : openssh
-- HTTP(S) : nginx
-- SQL : mariadb (ou postgresql)
-- GIT : git-daemon.socket (gitolite?)
-- SFTP : vsftpd
-- NTP : ntp
+```bash
+ls /etc/systemd/system/multi-user.target.wants
+ls /etc/systemd/system/sockets.target.wants
+```
+
+- cronie
+- mysqld
+- nginx
+- openntpd
+- php-fpm
+- sshd
+- git-daemon.socket
+
+## crontab
+
+```bash
+#min hour day Month Day_Of_Week Command
+0    0    *   *     *           pkgfile --update
+0    1    *   *     *           updatedb
+7    6    *   *     *           certbot renew ; systemctl reload nginx
+7    7    *   *     *           pacman -Syuw --noprogressbar --noconfirm
+```
 
 ## Backup/Restore (obsolete)
 
