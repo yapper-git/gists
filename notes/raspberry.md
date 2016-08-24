@@ -43,6 +43,21 @@ ls /etc/systemd/system/sockets.target.wants
 7    7    *   *     *           pacman -Syuw --noprogressbar --noconfirm
 ```
 
+## Let's encrypt
+
+- https://certbot.eff.org/#arch-nginx
+- http://linuxfr.org/news/reparlons-de-let-s-encrypt
+- https://javaguru.fi/setting-https-lets-encrypt-nginx.html
+
+```bash
+certbot certonly \
+    --webroot \
+    --email contact@example.com \
+    -w /srv/http/acme-challenge \
+    -d example.com \
+    -d www.example.com \
+```
+
 ## Backup/Restore (obsolete)
 
 ```bash
