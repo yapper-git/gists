@@ -110,6 +110,10 @@ shopt -s checkwinsize
 complete -cf sudo
 complete -cf man
 
+# Use pageUp/PageDown keys to search in history
+bind '"\e[5~": history-search-backward'
+bind '"\e[6~": history-search-forward'
+
 
 ################################################################################
 # Handy functions
