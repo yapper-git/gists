@@ -133,16 +133,20 @@ function update-dev()
 {
     #eval $(ssh-agent)
     #ssh-add ~/.ssh/id_rsa
+    for REPO in ~/src/bitbucket/*; do
+        echo -e "$bldpur=== $REPO ===$txtrst"
+        (cd "$REPO" && git pull)
+    done
     for REPO in ~/src/git/*; do
-        echo === $REPO ===
+        echo -e "$bldpur=== $REPO ===$txtrst"
         (cd "$REPO" && git pull)
     done
     for REPO in ~/src/git-follow/*; do
-        echo === $REPO ===
+        echo -e "$bldpur=== $REPO ===$txtrst"
         (cd "$REPO" && git pull)
     done
     for REPO in ~/src/svn/*; do
-        echo === $REPO ===
+        echo -e "$bldpur=== $REPO ===$txtrst"
         (cd "$REPO" && svn update)
     done
 }
