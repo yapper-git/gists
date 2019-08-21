@@ -123,7 +123,7 @@ bind '"\e[6~": history-search-forward'
 function update()
 {
     sudo pacman -Syu
-    pikaur -Su
+    pikaur -Sua
     hash updatedb 2> /dev/null && sudo updatedb
     hash pkgfile 2> /dev/null && sudo pkgfile --update
 }
