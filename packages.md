@@ -2,9 +2,9 @@
 
 ## Bureautique
 
-- LibreOffice (libreoffice-still libreoffice-still-fr)
+- LibreOffice (libreoffice-fresh libreoffice-fresh-fr)
 - Polices de caractères (ttf-bitstream-vera ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-linux-libertine ttf-ubuntu-font-family ttf-ms-fonts ttf-ms-win10)
-- Dictionnaires (aspell-fr hunspell-fr)
+- Dictionnaires et correcteurs (aspell-fr hunspell-fr grammalecte-fr libreoffice-extension-grammalecte-fr)
 - Calibre
 - LaTeX (texlive texlive-science texlive-langextra texlive-fontsextra texlive-pstricks)
 - Gummi
@@ -16,6 +16,8 @@
 
 - gedit gedit-plugins
 - geany geany-plugins
+- atom
+- visual-studio-code-bin
 - nano
 - vim
 - emacs
@@ -38,8 +40,8 @@
 - SoundConverter
 - Sound Juicer
 - LilyPond
-- musescore
-- frescobaldi
+- MuseScore
+- Frescobaldi
 - TiMidity++ (timidity++ timidity-freepats)
 - TuxGuitar
 - Audacity
@@ -96,6 +98,7 @@
 - meld
 - terminator
 - screen
+- pkgfile
 - irssi
 - base-devel (make gcc) / build-essential checkinstall fakeroot
 - Cheese
@@ -121,3 +124,5 @@
 - php
 - mariadb
 - phpmyadmin
+- elasticsearch
+- python-django
