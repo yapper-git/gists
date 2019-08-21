@@ -32,7 +32,7 @@
 ```bash
 # update
 sudo paman -Syu
-yaourt -Syu --devel --aur
+pikaur -Sua --devel
 sudo updatedb
 sudo pkgfile --update
 
@@ -74,4 +74,10 @@ avahi-daemon?
 ```bash
 ip link show
 dhcpcd INTERFACE
+```
+
+### Erreur PGP lors mise à jour pikaur
+
+```bash
+gpg --recv-keys FC918B335044912A
 ```
