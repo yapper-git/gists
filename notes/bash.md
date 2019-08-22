@@ -52,7 +52,8 @@ vimdiff /path/to/file scp://remotehost//path/to/file
 
 In vimdiff you can use:
 - CTRL+W twice to switch between the windows
-- `do` (= `:diffput`) or `dp` (= `:diffget`) to merge changes
+- `do` = diff obtain
+- `dp` = diff put
 - `]c`, `[c` to jump to the next or previous difference
 - `:diffupdate` to refresh
 
@@ -188,7 +189,7 @@ find . -not -type d -exec file "{}" ";" | grep CR
 function newlinetype()
 {
     [ $# -eq 0 ] && echo "Usage: newlinetype FILE1 [FILE2 ...]" 1>&2 && return 1
-    
+
     while [ -n "$1" ]
     do
         echo -n "$1:"
@@ -239,7 +240,7 @@ function dir2flac()
         echo "Aucun fichier à traiter"
         return 1
     fi
-    
+
     for ((i = 1; i <= $#; i++)); do
         echo "${!i} => ${!i}.flac"
         ffmpeg -i "${!i}" -acodec flac "${!i}.flac"
@@ -253,7 +254,7 @@ function dir2flac()
 function cdb()
 {
     [ ! -e ~/.cdb ] && mkdir ~/.cdb
-    
+
     if [ -z "$1" ]
     then
         echo "Usage: cdb [-c|-g|-d|-l] [bookmark]" 1>&2
