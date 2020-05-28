@@ -141,10 +141,6 @@ function update-dev()
         echo -e "$bldpur=== $REPO ===$txtrst"
         (cd "$REPO" && git pull)
     done
-    for REPO in ~/src/svn/*; do
-        echo -e "$bldpur=== $REPO ===$txtrst"
-        (cd "$REPO" && svn update)
-    done
 }
 
 # add (current or given) folder to PYTHONPATH
