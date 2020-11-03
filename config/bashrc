@@ -228,12 +228,12 @@ function search_files_ci()
 function search_in_files_cs()
 {
     [ $# -ne 1 ] && echo "Usage: search_in_files_cs PATTERN" 1>&2 && return 1
-    grep -F -R --exclude=*~ "$@" *
+    grep -F -R -I --exclude=*~ "$@" *
 }
 
 # search files containing pattern (case insensitive)
 function search_in_files_ci()
 {
     [ $# -ne 1 ] && echo "Usage: search_in_files_ci PATTERN" 1>&2 && return 1
-    grep -F -R -i --exclude=*~ "$@" *
+    grep -F -R -I -i --exclude=*~ "$@" *
 }
