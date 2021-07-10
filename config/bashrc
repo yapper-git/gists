@@ -132,21 +132,29 @@ function update()
     hash pkgfile 2> /dev/null && sudo pkgfile --update
 }
 
+#
+function mypip()
+{
+    pip install --upgrade pip
+    pip install --upgrade -r requirements.txt
+}
+
 # git status in all git repositories found in direct folders
 function git-pull()
 {
     for FOLDER in $(find -maxdepth 2 -type d -name .git); do
         echo -e "$bldpur=== $(basename $(dirname $FOLDER)) ===$txtrst"
-        (cd "$(dirname $FOLDER)" && git pull)
+        (cd "$(dirname $FOLDER)" && git pull $@)
     done
 }
 
 # git status in all git repositories found in direct folders
+# git-statys --short for short
 function git-status()
 {
     for FOLDER in $(find -maxdepth 2 -type d -name .git); do
         echo -e "$bldpur=== $(basename $(dirname $FOLDER)) ===$txtrst"
-        (cd "$(dirname $FOLDER)" && git status)
+        (cd "$(dirname $FOLDER)" && git status $@)
     done
 }
 
